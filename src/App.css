@@ -1,0 +1,120 @@
+/* ---------- Fundo ---------- */
+/* A imagem fica fixa atrás de tudo; a cor serve de reserva enquanto ela carrega. */
+body {
+  background-color: #c9252c;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url('./assets/fundo-cinema.jpg') right center / cover no-repeat;
+}
+
+/* ---------- Menu transparente com efeito granulado ---------- */
+.cabecalho-granulado {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* O "grão" é um ruído gerado por um SVG, desenhado por cima do menu. */
+.cabecalho-granulado::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Garante que o texto do menu fique por cima do grão. */
+.cabecalho-granulado > * {
+  position: relative;
+}
+
+.cabecalho-granulado .navbar-brand {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.cabecalho-granulado .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 2px solid transparent;
+}
+.cabecalho-granulado .nav-link:hover {
+  color: #fff;
+}
+.cabecalho-granulado .nav-link.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* ---------- Páginas e cartões ---------- */
+/* Altura da área de conteúdo = tela inteira menos o menu de cima */
+.pagina {
+  min-height: calc(100vh - 56px);
+  padding: 1.5rem 0;
+}
+
+.titulo-pagina {
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.cartao {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.cartao h1,
+.cartao h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.cartao a:not(.btn) {
+  color: #b3202a;
+}
+
+/* ---------- Botões nas cores do tema ---------- */
+.btn-success {
+  --bs-btn-bg: #1f1f1f;
+  --bs-btn-border-color: #1f1f1f;
+  --bs-btn-hover-bg: #000;
+  --bs-btn-hover-border-color: #000;
+  --bs-btn-active-bg: #000;
+  --bs-btn-active-border-color: #000;
+  --bs-btn-disabled-bg: #1f1f1f;
+  --bs-btn-disabled-border-color: #1f1f1f;
+}
+
+.btn-primary {
+  --bs-btn-bg: #6b6b6b;
+  --bs-btn-border-color: #6b6b6b;
+  --bs-btn-hover-bg: #4d4d4d;
+  --bs-btn-hover-border-color: #4d4d4d;
+  --bs-btn-active-bg: #4d4d4d;
+  --bs-btn-active-border-color: #4d4d4d;
+}
+
+/* ---------- Telas pequenas ---------- */
+@media (max-width: 767px) {
+  .w-50,
+  .w-75 {
+    width: 92% !important;
+  }
+  .cabecalho-granulado {
+    flex-wrap: wrap;
+  }
+}
